@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.rest.request;
 
 import io.github.evertoncnsouza.domain.entity.Autor;
 import javax.validation.constraints.Email;
@@ -12,7 +12,7 @@ public class AutorRequest {
 
     @NotEmpty(message = "{campo.email.obrigatorio}")
     @Email(message = "{email.invalido}")
-    private String email;
+     private String email;
 
     @Size(max = 400, message = "{limite.maximo.400}")
     @NotEmpty(message = "{campo.descricao.obrigatoria}")
@@ -29,6 +29,7 @@ public class AutorRequest {
         this.descricao = descricao;
     }
 
+
     public Autor toModel() {
         return new Autor(this.nome,this.email,this.descricao);
     }
@@ -37,4 +38,5 @@ public class AutorRequest {
         return this.email;
     }
 
-}
+    }
+

@@ -3,7 +3,6 @@ package io.github.evertoncnsouza.domain.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -26,14 +25,15 @@ public class Autor {
     private String descricao;
 
     private LocalDateTime horaCriacao = LocalDateTime.now();
-    @NotNull
+
 
     @Deprecated
-    public Autor(String email) {
+    public Autor() {
     }
 
     public Autor(@NotEmpty(message = "{campo.nome.obrigatorio}") String nome,
-                 @NotEmpty(message = "{campo.email.obrigatorio}") @Email(message = "Email invalido") String email,
+                 @NotEmpty(message = "{campo.email.obrigatorio}")@Email(message = "Email invalido")
+                         String email,
                  @NotEmpty(message = "{campo.descricao.obrigatoria}") String descricao) {
         this.nome = nome;
         this.email = email;
@@ -50,7 +50,6 @@ public class Autor {
                 ", horaCriacao=" + horaCriacao +
                 '}';
     }
-
 
 }
 

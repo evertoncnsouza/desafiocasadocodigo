@@ -1,23 +1,24 @@
-/*package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.rest.validador;
 
 import io.github.evertoncnsouza.domain.entity.Autor;
 import io.github.evertoncnsouza.repository.Autors;
+import io.github.evertoncnsouza.rest.request.AutorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-
-import javax.validation.Validator;
+import org.springframework.validation.Validator;
 import java.util.Optional;
+
 
 @Component
 public class EmailValidator implements Validator {
 
-    @Autowired
+   @Autowired
     private Autors autors;
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return NovoAutor.class.isAssignableFrom(clazz);
+        return AutorRequest.class.isAssignableFrom(clazz);
 
     }
 
@@ -26,16 +27,14 @@ public class EmailValidator implements Validator {
         if (errors.hasErrors()) {
             return;
         }
-
-        NovoAutor request = (NovoAutor) target;
-
+        AutorRequest request = (AutorRequest) target;
         Optional<Autor> possivelAutor = autors.findByEmail(request.getEmail());
 
         if (possivelAutor.isPresent()) {
             errors.rejectValue("email", null,
-                    "Já existe email cadastrado" + request.getEmail());
+                    "Já existe um(a) outro(a) autor(a) com o email cadastrado "
+                            + request.getEmail());
         }
     }
+}
 
-
-}*/
