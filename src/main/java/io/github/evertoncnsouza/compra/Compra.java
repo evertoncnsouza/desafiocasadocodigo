@@ -6,6 +6,7 @@ import io.github.evertoncnsouza.estado.Estado;
 import io.github.evertoncnsouza.pais.Pais;
 import io.github.evertoncnsouza.pedido.Pedido;
 import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -64,6 +65,10 @@ public class Compra {
     private CupomAplicado cupomAplicado;
    //PCI 4;
 
+
+    public Compra() {
+    }
+
     public Compra(@NotBlank @Email String email, @NotBlank String nome,
                   @NotBlank String sobrenome, @NotBlank String documento,
                   @NotBlank String endereco, @NotBlank String complemento,
@@ -81,6 +86,38 @@ public class Compra {
         this.pedido = funcaoCriacaoPedido.apply(this);
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
+    }
+
     @Override
     public String toString() {
         return "Compra{" +
@@ -88,6 +125,7 @@ public class Compra {
                 ", email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", sobrenome='" + sobrenome + '\'' +
+                ", cidade='" + cidade + '\'' +
                 ", documento='" + documento + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", complemento='" + complemento + '\'' +
@@ -96,7 +134,7 @@ public class Compra {
                 ", cep='" + cep + '\'' +
                 ", estado=" + estado +
                 ", pedido=" + pedido +
-               ", cupomAplicado=" + cupomAplicado +
+                ", cupomAplicado=" + cupomAplicado +
                 '}';
     }
 
@@ -111,4 +149,5 @@ public class Compra {
         Assert.isNull(cupomAplicado, "Você não pode trocar o cupom e uma compra");
         this.cupomAplicado = new CupomAplicado(cupom);
     }
+
 }

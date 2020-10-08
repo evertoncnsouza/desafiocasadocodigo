@@ -1,7 +1,11 @@
 package io.github.evertoncnsouza.pais;
 
+import io.github.evertoncnsouza.estado.Estado;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "pais")
@@ -14,6 +18,10 @@ public class Pais {
    @NotBlank
    private String nome;
 
+   @OneToMany(mappedBy = "pais")
+   @LazyCollection(LazyCollectionOption.EXTRA)
+   private Set<Estado> estados;
+
    @Deprecated
    public Pais() {
    }
@@ -22,12 +30,25 @@ public class Pais {
         this.nome = nome;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+
+
     @Override
     public String toString() {
         return "{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';
+    }
+    public boolean possuiEstados() {
+        return this.estados.size() != 0;
     }
 
     @Override //Detalhado o passo a passo na classe livro;

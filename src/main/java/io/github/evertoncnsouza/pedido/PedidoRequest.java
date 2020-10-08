@@ -2,7 +2,6 @@ package io.github.evertoncnsouza.pedido;
 
 import io.github.evertoncnsouza.compra.Compra;
 import org.springframework.util.Assert;
-
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//2 PCI's;
+//2 PCI;
 public class PedidoRequest {
 
     @Positive

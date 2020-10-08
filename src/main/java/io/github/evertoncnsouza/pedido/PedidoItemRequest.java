@@ -2,11 +2,9 @@ package io.github.evertoncnsouza.pedido;
 
 import io.github.evertoncnsouza.livro.Livro;
 import io.github.evertoncnsouza.validador.constraintvalidation.ExistsId;
-
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
 
 public class PedidoItemRequest {
 
@@ -28,9 +26,6 @@ public class PedidoItemRequest {
 
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package io.github.evertoncnsouza.cupom;
 
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

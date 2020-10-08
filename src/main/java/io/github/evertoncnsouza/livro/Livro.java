@@ -2,7 +2,6 @@ package io.github.evertoncnsouza.livro;
 
 import io.github.evertoncnsouza.autor.Autor;
 import io.github.evertoncnsouza.categoria.Categoria;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;

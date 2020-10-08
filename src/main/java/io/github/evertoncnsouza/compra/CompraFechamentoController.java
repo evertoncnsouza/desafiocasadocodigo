@@ -5,7 +5,6 @@ import io.github.evertoncnsouza.cupom.CupomValidoValidator;
 import io.github.evertoncnsouza.validador.constraintvalidation.EstadoPertenceAPaisValidator;
 import io.github.evertoncnsouza.validador.constraintvalidation.VerificaDocumentoCpfCnpjValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;

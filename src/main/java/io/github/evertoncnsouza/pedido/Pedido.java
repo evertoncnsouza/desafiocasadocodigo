@@ -27,12 +27,19 @@ public class Pedido {
     @ElementCollection //Mostra que a existência da Classe filha "ItemPedido", não tem sentido sem a classe mãe "Pedido";
     private @Size(min = 1) Set<ItemPedido> itens = new HashSet<>();
 
+    public Pedido() {
+    }
+
     public Pedido(@NotNull @Valid Compra compra,
-                  @Size(min=1) Set<ItemPedido> itens) {
+                  @Size(min = 1) Set<ItemPedido> itens) {
         Assert.isTrue(!itens.isEmpty(),
                 "todo pedido deve ter pelo menos um item");
         this.compra = compra;
         this.itens.addAll(itens);
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
     }
 
     //PCI 3;
@@ -41,6 +48,7 @@ public class Pedido {
                 .reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
         return totalPedido.doubleValue() == total.doubleValue();
     }
+
 
     @Override
     public String toString() {

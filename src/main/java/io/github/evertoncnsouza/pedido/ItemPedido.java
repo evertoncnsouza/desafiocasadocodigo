@@ -31,6 +31,22 @@ public class ItemPedido {
         this.precoMomento = livro.getPreco();
     }
 
+    public BigDecimal total(){
+        return precoMomento.multiply(new BigDecimal(quantidade));
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public BigDecimal getPrecoMomento() {
+        return precoMomento;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
     @Override
     public String toString() {
         return "ItemPedido{" +
@@ -39,11 +55,6 @@ public class ItemPedido {
                 ", precoMomento=" + precoMomento +
                 '}';
     }
-
-    public BigDecimal total(){
-        return precoMomento.multiply(new BigDecimal(quantidade));
-    }
-
 
     @Override //Explicado passo a passo na JavaClass Livro;
     public int hashCode() {

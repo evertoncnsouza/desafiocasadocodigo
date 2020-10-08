@@ -33,6 +33,10 @@ public class CupomAplicado {
         this.validadeMomento = cupom.getValidade();
     }
 
+    public BigDecimal getPercentualDescontoMomento() {
+        return percentualDescontoMomento;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -41,5 +45,7 @@ public class CupomAplicado {
                 ", validadeMomento=" + validadeMomento +
                 '}';
     }
+
+
 }
 

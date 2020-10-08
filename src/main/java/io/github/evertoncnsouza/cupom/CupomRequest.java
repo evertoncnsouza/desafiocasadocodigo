@@ -2,7 +2,6 @@ package io.github.evertoncnsouza.cupom;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.evertoncnsouza.validador.constraintvalidation.UniqueValue;
-
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -96,13 +96,6 @@ public class CompraRequest {
         return documento;
     }
 
-    public Long getIdPais() {
-        return idPais;
-    }
-
-    public Long getIdEstado() {
-        return idEstado;
-    }
 
     @Override
     public String toString() {
@@ -136,7 +129,18 @@ public class CompraRequest {
         || cnpjValidator.isValid(documento, null);
 
     }
-         //PCI 3;
+
+    public Long getIdPais() {
+        return idPais;
+    }
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+
+
+    //PCI 3;
          public Compra toModel(EntityManager manager, CupomRepository cupomRepository ) {
             @NotNull
             Pais pais = manager.find(Pais.class, idPais);

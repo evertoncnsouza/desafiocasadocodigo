@@ -1,7 +1,6 @@
 package io.github.evertoncnsouza.estado;
 
 import io.github.evertoncnsouza.pais.Pais;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table (name = "Estado")
 public class Estado {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,10 @@ public class Estado {
     public Estado(@NotBlank String nome, @NotNull @Valid Pais pais) {
         this.nome = nome;
         this.pais = pais;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     @Override
