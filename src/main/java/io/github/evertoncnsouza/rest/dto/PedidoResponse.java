@@ -1,0 +1,26 @@
+package io.github.evertoncnsouza.rest.dto;
+
+import io.github.evertoncnsouza.domain.entity.Pedido;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PedidoResponse {
+
+
+    private List<PedidoItemResponse> itens = new ArrayList<>();
+    private BigDecimal total;
+
+    public PedidoResponse(Pedido pedido) {
+        pedido.getItens().forEach(item -> itens.add(new PedidoItemResponse(item)));
+    }
+
+    public List<PedidoItemResponse> getItens() {
+        return itens;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+}
