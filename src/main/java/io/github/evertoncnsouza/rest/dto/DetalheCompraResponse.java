@@ -1,9 +1,7 @@
 package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Compra;
-
 import java.math.BigDecimal;
-
 public class DetalheCompraResponse {
 
     private boolean existeCupom;
@@ -66,7 +64,7 @@ public class DetalheCompraResponse {
         return valorCupom;
     }
     public BigDecimal getTotalComDescontos() {
-        return pedido.getTotal();
+        return pedido.getTotal().subtract(valorCupom);
     }
 
 }

@@ -91,6 +91,11 @@ public class CompraRequest {
         this.codigoCupom = codigoCupom;
     }
 
+    public Optional<String> getCodigoCupom() {
+        return Optional.ofNullable(codigoCupom);
+    }
+
+
     public Long getIdPais() {
         return idPais;
     }
@@ -128,32 +133,18 @@ public class CompraRequest {
     //PCI 3;
     public Compra toModel(EntityManager manager, CupomRepository cupomRepository) {
         Pais pais = manager.find(Pais.class, idPais);
-        //PCI 4;
-        //PCI 5;
         Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
-
-        //PCI 6;
         Compra compra = new Compra(email, nome, sobrenome, cidade, documento, endereco, complemento,
                 pais, telefone, cep, funcaoCriacaoPedido);
-
-        //PCI 7;
         if (idEstado != null) {
             compra.setEstado(manager.find(Estado.class, idEstado));
         }
-
-        //PCI 8;
-        if (StringUtils.hasText(codigoCupom)) {
-            Cupom cupom = cupomRepository.getByCodigo(codigoCupom);
+      if (StringUtils.hasText(codigoCupom)) {
+            Cupom cupom = cupomRepository.findByCodigo(codigoCupom);
             compra.aplicaCupom(cupom);
         }
-        return compra;
-
+  return compra;
     }
-
-    public Optional<String> getCodigoCupom() {
-        return Optional.ofNullable(codigoCupom);
-    }
-
     public boolean temEstado() {
         return idEstado != null;
     }

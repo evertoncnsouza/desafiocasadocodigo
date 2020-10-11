@@ -111,7 +111,6 @@ public class Compra {
     }
 
 
-
     @Override
     public String toString() {
         return "Compra{" +
@@ -128,7 +127,8 @@ public class Compra {
                 ", cep='" + cep + '\'' +
                 ", estado=" + estado +
                 ", pedido=" + pedido +
-                 '}';
+                ", cupomAplicado=" + cupomAplicado +
+                '}';
     }
 
     public void setEstado(@NotNull @Valid Estado estado) {
@@ -137,11 +137,13 @@ public class Compra {
         this.estado = estado;
     }
 
-    public void aplicaCupom(Cupom cupom) {
-        Assert.isTrue(cupom.valido(), "Cupom não está mais valido");
-        Assert.isNull(cupomAplicado, "Você não pode trocar o cupom e uma compra");
+    public void aplicaCupom(@Valid Cupom cupom) {
+        Assert.notNull(cupom, "Para aplica um cupom, este não pode ser nulo");
+        Assert.isNull(this.cupomAplicado, "Só é possível aplicar um cupom por compra");
+        Assert.isTrue(cupom.valido(), "O cupom já não é mais válido de acordo com a data de validade");
         this.cupomAplicado = new CupomAplicado(cupom);
     }
+
 
     public Optional<CupomAplicado> getCupomAplicado(){
         return Optional.ofNullable(cupomAplicado);

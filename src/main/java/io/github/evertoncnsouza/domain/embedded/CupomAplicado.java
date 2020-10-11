@@ -4,6 +4,7 @@ import io.github.evertoncnsouza.domain.entity.Cupom;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -29,7 +30,7 @@ public class CupomAplicado {
     public CupomAplicado() {
     }
 
-    public CupomAplicado(Cupom cupom) {
+    public CupomAplicado(@Valid Cupom cupom) {
         this.cupom = cupom;
         this.percentualDescontoMomento = cupom.getPercentualDesconto();
         this.validadeMomento = cupom.getValidade();
