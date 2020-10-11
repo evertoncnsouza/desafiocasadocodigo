@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class DetalheCompraResponse {
 
     private boolean existeCupom;
-    private BigDecimal cupomAplicado;
+    private BigDecimal valorCupom;
     private PedidoResponse pedido;
     private String pais;
     private String cidade;
@@ -22,46 +22,51 @@ public class DetalheCompraResponse {
         endereco = compra.getEndereco();
         cidade = compra.getCidade();
         pais = compra.getPais().getNome();
-        //estado = compra.getEstado().getNome();
+        compra.getEstado().ifPresent(estado -> this.estado = estado.getNome());
         this.pedido = new PedidoResponse(compra.getPedido());
-      //cupomAplicado = compra.getCupomAplicado().getPercentualDescontoMomento();
-
-    }
-
-    public PedidoResponse getPedido() {
-        return pedido;
-    }
-
-
-    public String getPais() {
-        return pais;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
+        compra.getCupomAplicado().ifPresent( cupom -> {
+            this.existeCupom = true;
+            this.valorCupom = compra.getValorDesconto();
+        });
     }
 
     public String getNome() {
         return nome;
     }
 
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
     public String getEstado() {
         return estado;
+    }
+
+    public PedidoResponse getPedido() {
+        return pedido;
     }
 
     public boolean isExisteCupom() {
         return existeCupom;
     }
 
-    public BigDecimal getCupomAplicado() {
-        return cupomAplicado;
+    public BigDecimal getValorCupom() {
+        return valorCupom;
     }
+    public BigDecimal getTotalComDescontos() {
+        return pedido.getTotal();
+    }
+
 }

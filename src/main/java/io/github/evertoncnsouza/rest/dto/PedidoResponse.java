@@ -9,11 +9,12 @@ import java.util.List;
 public class PedidoResponse {
 
 
-    private List<PedidoItemResponse> itens = new ArrayList<>();
     private BigDecimal total;
+    private List<PedidoItemResponse> itens = new ArrayList<>();
 
     public PedidoResponse(Pedido pedido) {
-        pedido.getItens().forEach(item -> itens.add(new PedidoItemResponse(item)));
+        total = pedido.getTotal();
+        pedido.getItens().forEach( item -> itens.add(new PedidoItemResponse(item)));
     }
 
     public List<PedidoItemResponse> getItens() {
@@ -23,4 +24,5 @@ public class PedidoResponse {
     public BigDecimal getTotal() {
         return total;
     }
+
 }

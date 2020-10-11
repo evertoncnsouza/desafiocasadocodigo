@@ -7,6 +7,7 @@ import io.github.evertoncnsouza.rest.dto.PedidoItemRequest;
 import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -29,8 +30,7 @@ public class PedidoRequest {
     private List<PedidoItemRequest> itens = new ArrayList<>();
     //PCI 1;
 
-    public PedidoRequest(@Positive @NotNull BigDecimal total,
-                         @Size(min = 1) @Valid List<PedidoItemRequest> itens) {
+    public PedidoRequest(@NotNull @Positive BigDecimal total, @NotEmpty List<PedidoItemRequest> itens) {
         super();
         this.total = total;
         this.itens = itens;
@@ -44,16 +44,12 @@ public class PedidoRequest {
         return itens;
     }
 
-
-    public Function<Compra, Pedido> toModel(EntityManager manager) {
+    public Function<Compra, Pedido> toModel(EntityManager manager){
         Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
-        //PCI 2;
-
-        return(compra) -> {
-            Pedido pedido = new Pedido(compra, itensCalculados);
-            Assert.isTrue(pedido.totalIgual(total),"Olha, o total enviado, não corresponde ao total real");
+        return (compra) ->{
+            Pedido pedido = new Pedido(compra, total, itensCalculados);
+            Assert.isTrue(pedido.totalIgual(this.total), "Total do pedido, não reflete o total real");
             return pedido;
         };
     }
 }
-

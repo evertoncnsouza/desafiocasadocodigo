@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Entity
@@ -41,7 +42,7 @@ public class Compra {
 
     @ManyToOne //Uma compra tem um país. Um país, tem muitas compras;
     @NotNull
-    Pais pais;
+    private Pais pais;
     //PCI 1;
 
     @NotBlank
@@ -63,6 +64,7 @@ public class Compra {
    //PCI 4;
 
 
+    @Deprecated
     public Compra() {
     }
 
@@ -104,13 +106,11 @@ public class Compra {
         return pais;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Optional<Estado> getEstado() {
+        return Optional.ofNullable(estado);
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
+
 
     @Override
     public String toString() {
@@ -128,8 +128,7 @@ public class Compra {
                 ", cep='" + cep + '\'' +
                 ", estado=" + estado +
                 ", pedido=" + pedido +
-                ", cupomAplicado=" + cupomAplicado +
-                '}';
+                 '}';
     }
 
     public void setEstado(@NotNull @Valid Estado estado) {
@@ -144,10 +143,19 @@ public class Compra {
         this.cupomAplicado = new CupomAplicado(cupom);
     }
 
-    private BigDecimal getValorDesconto(){
+    public Optional<CupomAplicado> getCupomAplicado(){
+        return Optional.ofNullable(cupomAplicado);
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public BigDecimal getValorDesconto(){
         if(this.cupomAplicado == null)
             return BigDecimal.ZERO;
-        return this.pedido.getTotal().multiply(this.cupomAplicado.getPercentualDescontoMomento())
+        return this.pedido.getTotal()
+                .multiply(this.cupomAplicado.getPercentualDescontoMomento())
                 .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
 }

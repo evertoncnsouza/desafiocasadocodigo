@@ -26,40 +26,35 @@ public class Pedido {
 
     //PCI 2;
     @ElementCollection //Mostra que a existência da Classe filha "ItemPedido", não tem sentido sem a classe mãe "Pedido";
-    private @Size(min = 1) Set<ItemPedido> itens = new HashSet<>();
+    private @Size(min = 1) Set<ItemPedido> itens;
 
-    public Pedido() {
-    }
+    @Deprecated
+    public Pedido() {	}
 
-    public Pedido(@NotNull @Valid Compra compra,
+    public Pedido(@NotNull @Valid Compra compra,@NotNull @Positive BigDecimal total,
                   @Size(min = 1) Set<ItemPedido> itens) {
-        Assert.isTrue(!itens.isEmpty(),
-                "todo pedido deve ter pelo menos um item");
+        Assert.notEmpty(itens, "Todo pedido deve ter pelo menos 1 item");
+        this.total = total;
+        this.itens = itens;
         this.compra = compra;
-        this.itens.addAll(itens);
-    }
-
-    public Set<ItemPedido> getItens() {
-        return itens;
     }
 
     public BigDecimal getTotal() {
         return total;
     }
 
-    //PCI 3;
-    public boolean totalIgual(@Positive @NotNull BigDecimal total) {
-        BigDecimal totalPedido = itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO,
-                BigDecimal::add);
+    public Set<ItemPedido> getItens() {
+        return itens;
+    };
 
-        return totalPedido.doubleValue() == total.doubleValue();
+    public boolean totalIgual(@NotNull @Positive BigDecimal total) {
+        BigDecimal totalPedido = this.itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
+        return totalPedido.compareTo(total) == 0;
     }
-
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                "itens=" + itens +
-                '}';
+        return "Pedido [id=" + id + ", total=" + total + ", itens=" + itens + "]";
     }
+
 }
